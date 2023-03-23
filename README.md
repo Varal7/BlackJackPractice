@@ -1,4 +1,4 @@
-# Blackjack Practice (built using GPT-4)
+# Blackjack Practice (by GPT-4)
 
 <div align="center">
   <img src="https://github.com/Varal7/BlackJackPractice/raw/main/logos/input.jpg" alt="BlackJackPractice App Logo">
