@@ -6,6 +6,16 @@ struct SplitsView: View {
     @State private var dealerCard: Int
     @State private var feedbackMessage: String
     @State private var backgroundColor: Color
+    @State private var isHintVisible: Bool = false
+    
+    private let hintText: String = """
+    Always split aces and 8s
+    Never split 5s
+    Split 2s, 3s, 7s against 2-7
+    Split 4s against 5 or 6
+    Split 6s against 2-6
+    Split 9s against 2-6 and 8-9
+    """
     
     init() {
         let card = Utility.randomCard()
@@ -17,31 +27,61 @@ struct SplitsView: View {
     }
     
     var body: some View {
-        VStack(spacing: 16) {
-            Text(feedbackMessage)
-            HStack {
-                Text("Dealer: ")
-                CardView(card: dealerCard)
+        ZStack {
+            VStack(spacing: 16) {
+                Text(feedbackMessage)
+                HStack {
+                    Text("Dealer: ")
+                    CardView(card: dealerCard)
+                }
+                HStack {
+                    Text("You: ")
+                    CardView(card: playerCard1)
+                    CardView(card: playerCard2)
+                }
+                
+                SplitButtonsView(playerCard1: $playerCard1, playerCard2: $playerCard2, dealerCard: $dealerCard, feedbackMessage: $feedbackMessage, backgroundColor: $backgroundColor)
+                
+                ActionButton(title: "Deal", backgroundColor: Color.green, action: {
+                    let newCard = Utility.randomCard()
+                    playerCard1 = newCard
+                    playerCard2 = newCard
+                    dealerCard = Utility.randomCard()
+                    feedbackMessage = ""
+                    backgroundColor = .clear
+                })
             }
-            HStack {
-                Text("You: ")
-                CardView(card: playerCard1)
-                CardView(card: playerCard2)
+            .padding()
+            .background(backgroundColor)
+            .onTapGesture {
+                if isHintVisible {
+                    isHintVisible = false
+                }
             }
-
-            SplitButtonsView(playerCard1: $playerCard1, playerCard2: $playerCard2, dealerCard: $dealerCard, feedbackMessage: $feedbackMessage, backgroundColor: $backgroundColor)
-
-            ActionButton(title: "Deal", backgroundColor: Color.green, action: {
-                let newCard = Utility.randomCard()
-                playerCard1 = newCard
-                playerCard2 = newCard
-                dealerCard = Utility.randomCard()
-                feedbackMessage = ""
-                backgroundColor = .clear
-            })
+            
+            if isHintVisible {
+                Color.clear
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        isHintVisible = false
+                    }
+                
+                HintPopupView(hintText: hintText, onClose: {
+                    isHintVisible = false
+                })
+            }
         }
-        .padding()
-        .background(backgroundColor)
+        .navigationBarItems(trailing: hintButton)
+    }
+    
+    private var hintButton: some View {
+        Button(action: {
+            isHintVisible.toggle()
+        }) {
+            Image(systemName: "questionmark.circle")
+                .font(.system(size: 24))
+                .foregroundColor(.blue)
+        }
     }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D9595DC229CCE5DB007421C6 /* HintPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9595DC129CCE5DB007421C6 /* HintPopupView.swift */; };
 		D9C11A7229CB58F9005C4CBD /* BlackJackPracticeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C11A7129CB58F9005C4CBD /* BlackJackPracticeApp.swift */; };
 		D9C11A7629CB58FB005C4CBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9C11A7529CB58FB005C4CBD /* Assets.xcassets */; };
 		D9C11A7929CB58FB005C4CBD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9C11A7829CB58FB005C4CBD /* Preview Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D9595DC129CCE5DB007421C6 /* HintPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintPopupView.swift; sourceTree = "<group>"; };
 		D9C11A6E29CB58F9005C4CBD /* BlackJackPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackJackPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9C11A7129CB58F9005C4CBD /* BlackJackPracticeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackPracticeApp.swift; sourceTree = "<group>"; };
 		D9C11A7529CB58FB005C4CBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				D9C11A7F29CBFA05005C4CBD /* Utility.swift */,
 				D9C11A8129CBFA37005C4CBD /* MainView.swift */,
 				D9C11A8729CBFAC2005C4CBD /* SplitsView.swift */,
+				D9595DC129CCE5DB007421C6 /* HintPopupView.swift */,
 				D9C11A8F29CCB152005C4CBD /* HardTotalsView.swift */,
 				D9C11A9129CCB16A005C4CBD /* SoftTotalsView.swift */,
 				D9C11A8329CBFA58005C4CBD /* CardView.swift */,
@@ -161,6 +164,7 @@
 				D9C11A9029CCB152005C4CBD /* HardTotalsView.swift in Sources */,
 				D9C11A8029CBFA05005C4CBD /* Utility.swift in Sources */,
 				D9C11A9229CCB16A005C4CBD /* SoftTotalsView.swift in Sources */,
+				D9595DC229CCE5DB007421C6 /* HintPopupView.swift in Sources */,
 				D9C11A8429CBFA58005C4CBD /* CardView.swift in Sources */,
 				D9C11A8629CBFA90005C4CBD /* ActionButton.swift in Sources */,
 			);

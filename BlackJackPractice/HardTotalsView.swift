@@ -6,6 +6,21 @@ struct HardTotalsView: View {
     @State private var dealerCard: Int
     @State private var feedbackMessage: String
     @State private var backgroundColor: Color
+    @State private var isHintVisible: Bool = false
+    
+    private let hintText: String = """
+    17-21: stand
+    13-16: stand against 2-6, otw hit
+    13-16: stand against 2-6, otw hit
+    12: stand against 4-6, otw hit
+    12: stand against 4-6, otw hit
+    11: double
+    10: double against 2-9, otw hit
+    10: double against 2-9, otw hit
+    9: double against 3-6, otw hit
+    9: double against 3-6, otw hit
+    8 or less: hit
+    """
     
     init() {
         (playerCard1, playerCard2) = HardTotalsView.randomHardTotalCards()
@@ -21,34 +36,59 @@ struct HardTotalsView: View {
         let playerCard2 = cardValues.randomElement()!
         return (playerCard1, playerCard2)
     }
-
+    
     
     var body: some View {
-        VStack(spacing: 16) {
-            Text(feedbackMessage)
-            HStack {
-                Text("Dealer: ")
-                CardView(card: dealerCard)
+        ZStack {
+            VStack(spacing: 16) {
+                Text(feedbackMessage)
+                HStack {
+                    Text("Dealer: ")
+                    CardView(card: dealerCard)
+                }
+                HStack {
+                    Text("You: ")
+                    CardView(card: playerCard1)
+                    CardView(card: playerCard2)
+                }
+                
+                ActionButtonsView(playerCard1: $playerCard1, playerCard2: $playerCard2, dealerCard: $dealerCard, feedbackMessage: $feedbackMessage, backgroundColor: $backgroundColor)
+                
+                ActionButton(title: "Deal", backgroundColor: Color.green, action: {
+                    (playerCard1, playerCard2) = HardTotalsView.randomHardTotalCards()
+                    dealerCard = Utility.randomCard()
+                    feedbackMessage = ""
+                    backgroundColor = .clear
+                })
             }
-            HStack {
-                Text("You: ")
-                CardView(card: playerCard1)
-                CardView(card: playerCard2)
+            .padding()
+            .background(backgroundColor)
+            .onTapGesture {
+                if isHintVisible {
+                    isHintVisible = false
+                }
             }
             
-            ActionButtonsView(playerCard1: $playerCard1, playerCard2: $playerCard2, dealerCard: $dealerCard, feedbackMessage: $feedbackMessage, backgroundColor: $backgroundColor)
-            
-            ActionButton(title: "Deal", backgroundColor: Color.green, action: {
-                (playerCard1, playerCard2) = HardTotalsView.randomHardTotalCards()
-                dealerCard = Utility.randomCard()
-                feedbackMessage = ""
-                backgroundColor = .clear
-            })
+            if isHintVisible {
+                HintPopupView(hintText: hintText, onClose: {
+                    isHintVisible = false
+                })
+            }
         }
-        .padding()
-        .background(backgroundColor)
+        .navigationBarItems(trailing: hintButton)
+    }
+    
+    private var hintButton: some View {
+        Button(action: {
+            isHintVisible.toggle()
+        }) {
+            Image(systemName: "questionmark.circle")
+                .font(.system(size: 24))
+                .foregroundColor(.blue)
+        }
     }
 }
+
 
 struct HardButtonsView: View {
     @Binding var playerCard1: Int
