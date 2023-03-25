@@ -17,37 +17,47 @@ struct MainView: View {
 
 struct MenuView: View {
     let buttonWidth: CGFloat = 200
-
+    
     var body: some View {
-        VStack(spacing: 16) {
-            NavigationLink(destination: SplitsView()) {
-                Text("Splits")
-                    .padding()
-                    .frame(width: buttonWidth)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
+        ZStack {
+            GradientBackground()
+            
+            VStack(spacing: 32) {
+                NavigationLink(destination: SplitsView()) {
+                    Text("Splits")
+                        .fontWeight(.medium)
+                        .font(.system(size:24))
+                        .padding()
+                        .frame(width: buttonWidth)
+                        .background(Color("Primary"))
+                        .foregroundColor(Color("TextColor"))
+                        .cornerRadius(6)
+                }
+                
+                NavigationLink(destination: SoftTotalsView()) {
+                    Text("Soft Totals")
+                        .fontWeight(.medium)
+                        .font(.system(size:24))
+                        .padding()
+                        .frame(width: buttonWidth)
+                        .background(Color("Primary"))
+                        .foregroundColor(Color("TextColor"))
+                        .cornerRadius(6)
+                }
+                
+                NavigationLink(destination: HardTotalsView()) {
+                    Text("Hard Totals")
+                        .fontWeight(.medium)
+                        .font(.system(size:24))
+                        .padding()
+                        .frame(width: buttonWidth)
+                        .background(Color("Primary"))
+                        .foregroundColor(Color("TextColor"))
+                        .cornerRadius(6)
+                }
             }
-
-            NavigationLink(destination: SoftTotalsView()) {
-                Text("Soft Totals")
-                    .padding()
-                    .frame(width: buttonWidth)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-            }
-
-            NavigationLink(destination: HardTotalsView()) {
-                Text("Hard Totals")
-                    .padding()
-                    .frame(width: buttonWidth)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-            }
+            .padding()
         }
-        .padding()
     }
 }
 

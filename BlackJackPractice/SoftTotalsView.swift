@@ -1,12 +1,14 @@
 import SwiftUI
 
 struct SoftTotalsView: View {
-    @State private var playerCard1: Int
-    @State private var playerCard2: Int
-    @State private var dealerCard: Int
+    @State private var playerCard1: Card
+    @State private var playerCard2: Card
+    @State private var dealerCard: Card
     @State private var feedbackMessage: String
     @State private var backgroundColor: Color
     @State private var isHintVisible: Bool = false
+    @State private var triggerDealerBackCardSwooshIn = false
+
     
     private let hintText: String = """
     Double soft 13-14 against 5-6, otw hit
@@ -18,7 +20,7 @@ struct SoftTotalsView: View {
     """
     
     init() {
-        playerCard1 = 1
+        playerCard1 = Utility.randomCard(rank: 1)
         playerCard2 = Utility.randomCard()
         dealerCard = Utility.randomCard()
         feedbackMessage = ""
@@ -27,24 +29,28 @@ struct SoftTotalsView: View {
     
     var body: some View {
         ZStack {
+            GradientBackground()
             VStack(spacing: 16) {
+                Spacer()
                 Text(feedbackMessage)
                 HStack {
-                    Text("Dealer: ")
-                    CardView(card: dealerCard)
-                }
+                    CardView(Card(rank:0, suit: .clubs), delay: 0.2, triggerSwooshIn: $triggerDealerBackCardSwooshIn)
+                    CardView(dealerCard, delay: 0.6)
+                }.font(.system(size:40))
+                Spacer()
                 HStack {
-                    Text("You: ")
-                    CardView(card: playerCard1)
-                    CardView(card: playerCard2)
-                }
+                    CardView(playerCard1)
+                    CardView(playerCard2, delay: 0.4)
+                }.font(.system(size:40))
+                Spacer()
                 
                 ActionButtonsView(playerCard1: $playerCard1, playerCard2: $playerCard2, dealerCard: $dealerCard, feedbackMessage: $feedbackMessage, backgroundColor: $backgroundColor)
                 
-                ActionButton(title: "Deal", backgroundColor: Color.green, action: {
-                    playerCard1 = 1
+                ActionButton(title: "Deal", backgroundColor: Color(hex: "#404125"), action: {
+                    playerCard1 = Utility.randomCard(rank: 1)
                     playerCard2 = Utility.randomCard()
                     dealerCard = Utility.randomCard()
+                    triggerDealerBackCardSwooshIn = true
                     feedbackMessage = ""
                     backgroundColor = .clear
                 })
@@ -78,9 +84,9 @@ struct SoftTotalsView: View {
 }
 
 struct ActionButtonsView: View {
-    @Binding var playerCard1: Int
-    @Binding var playerCard2: Int
-    @Binding var dealerCard: Int
+    @Binding var playerCard1: Card
+    @Binding var playerCard2: Card
+    @Binding var dealerCard: Card
     @Binding var feedbackMessage: String
     @Binding var backgroundColor: Color
     
@@ -92,7 +98,7 @@ struct ActionButtonsView: View {
                 HStack {
                     ForEach(Array(0..<2), id: \.self) { subIndex in
                         let action = actions[index * 2 + subIndex]
-                        ActionButton(title: action.rawValue.capitalized, backgroundColor: Color.blue, action: {
+                        ActionButton(title: action.rawValue.capitalized, backgroundColor: Color(hex: "#003D2C"), action: {
                             handleAction(action: action)
                         })
                     }
@@ -108,7 +114,7 @@ struct ActionButtonsView: View {
             backgroundColor = .clear
         } else {
             feedbackMessage = "Incorrect. \(reason)"
-            backgroundColor = .red
+            backgroundColor = Color("Danger")
         }
     }
 }

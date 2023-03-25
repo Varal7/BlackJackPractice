@@ -81,4 +81,5 @@ We would like to thank the following individuals, organizations, and resources f
 - Reflect's AI Palette for generating Swift code using GPT-4
 - Midjourney for creating the app logo
 - Github Copilot for generating Python code
+- [Playing Cards assets](https://github.com/hayeah/playing-cards-assets)
 - All contributors and users who have provided valuable feedback and support

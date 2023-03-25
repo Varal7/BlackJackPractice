@@ -12,16 +12,19 @@ struct ActionButton: View {
     let backgroundColor: Color
     let action: () -> Void
     let buttonWidth: CGFloat = 180
-
-
+    
+    
     var body: some View {
         Button(action: action) {
             Text(title)
+                .fontWeight(.semibold)
+                .font(.system(size:24))
+                .textCase(.uppercase)
                 .padding()
                 .frame(width: buttonWidth)
                 .background(backgroundColor)
-                .foregroundColor(.white)
-                .cornerRadius(8)
+                .foregroundColor(Color("TextColor"))
+                .cornerRadius(6)
         }
     }
 }
@@ -30,23 +33,27 @@ struct ActionButton: View {
 
 struct ActionView_Previews: PreviewProvider {
     static var previews: some View {
-        VStack {
-            HStack {
-                ActionButton(title: "Button title", backgroundColor: Color.blue, action: {
-                    //
-                })
-                ActionButton(title: "Button title", backgroundColor: Color.red, action: {
-                    //
-                })
-            }
-            HStack {
-                ActionButton(title: "Button title", backgroundColor: Color.green, action: {
-                    //
-                })
-                ActionButton(title: "Button title", backgroundColor: Color.yellow, action: {
-                    //
-                })
-            }
-        }.preferredColorScheme(.dark) // Add this line to enable Dark mode by default
+        ZStack {
+            GradientBackground()
+            
+            VStack {
+                HStack {
+                    ActionButton(title: "Stand", backgroundColor: Color("Primary"), action: {
+                        //
+                    })
+                    ActionButton(title: "Hit", backgroundColor: Color("Primary"), action: {
+                        //
+                    })
+                }
+                HStack {
+                    ActionButton(title: "Title", backgroundColor: Color("Secondary"), action: {
+                        //
+                    })
+                    ActionButton(title: "Deal", backgroundColor: Color("Secondary"), action: {
+                        //
+                    })
+                }
+            }.preferredColorScheme(.dark) // Add this line to enable Dark mode by default
+        }
     }
 }

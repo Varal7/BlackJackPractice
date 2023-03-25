@@ -1,12 +1,13 @@
 import SwiftUI
 
 struct SplitsView: View {
-    @State private var playerCard1: Int
-    @State private var playerCard2: Int
-    @State private var dealerCard: Int
+    @State private var playerCard1: Card
+    @State private var playerCard2: Card
+    @State private var dealerCard: Card
     @State private var feedbackMessage: String
     @State private var backgroundColor: Color
     @State private var isHintVisible: Bool = false
+    @State private var triggerDealerBackCardSwooshIn = false
     
     private let hintText: String = """
     Always split aces and 8s
@@ -16,11 +17,12 @@ struct SplitsView: View {
     Split 6s against 2-6
     Split 9s against 2-6 and 8-9
     """
+
     
     init() {
         let card = Utility.randomCard()
         playerCard1 = card
-        playerCard2 = card
+        playerCard2 = Utility.randomCard(rank: card.rank)
         dealerCard = Utility.randomCard()
         feedbackMessage = ""
         backgroundColor = .clear
@@ -28,25 +30,28 @@ struct SplitsView: View {
     
     var body: some View {
         ZStack {
+            GradientBackground()
             VStack(spacing: 16) {
+                Spacer()
                 Text(feedbackMessage)
                 HStack {
-                    Text("Dealer: ")
-                    CardView(card: dealerCard)
-                }
+                    CardView(Card(rank:0, suit: .clubs), delay: 0.2, triggerSwooshIn: $triggerDealerBackCardSwooshIn)
+                    CardView(dealerCard, delay: 0.6)
+                }.font(.system(size:40))
+                Spacer()
                 HStack {
-                    Text("You: ")
-                    CardView(card: playerCard1)
-                    CardView(card: playerCard2)
-                }
+                    CardView(playerCard1)
+                    CardView(playerCard2, delay: 0.4)
+                }.font(.system(size:40))
+                Spacer()
                 
                 SplitButtonsView(playerCard1: $playerCard1, playerCard2: $playerCard2, dealerCard: $dealerCard, feedbackMessage: $feedbackMessage, backgroundColor: $backgroundColor)
-                
-                ActionButton(title: "Deal", backgroundColor: Color.green, action: {
-                    let newCard = Utility.randomCard()
-                    playerCard1 = newCard
-                    playerCard2 = newCard
+                ActionButton(title: "Deal", backgroundColor: Color("Secondary"), action: {
+                    let card = Utility.randomCard()
+                    playerCard1 = card
+                    playerCard2 = Utility.randomCard(rank: card.rank)
                     dealerCard = Utility.randomCard()
+                    triggerDealerBackCardSwooshIn = true
                     feedbackMessage = ""
                     backgroundColor = .clear
                 })
@@ -86,9 +91,9 @@ struct SplitsView: View {
 }
 
 struct SplitButtonsView: View {
-    @Binding var playerCard1: Int
-    @Binding var playerCard2: Int
-    @Binding var dealerCard: Int
+    @Binding var playerCard1: Card
+    @Binding var playerCard2: Card
+    @Binding var dealerCard: Card
     @Binding var feedbackMessage: String
     @Binding var backgroundColor: Color
     
@@ -97,7 +102,7 @@ struct SplitButtonsView: View {
     var body: some View {
         HStack {
             ForEach(actions, id: \.self) { action in
-                ActionButton(title: action, backgroundColor: Color.blue, action: {
+                ActionButton(title: action, backgroundColor: Color("Primary"), action: {
                     handleAction(action: action)
                 })
             }
@@ -111,7 +116,7 @@ struct SplitButtonsView: View {
             backgroundColor = .clear
         } else {
             feedbackMessage = "Incorrect. \(reason)"
-            backgroundColor = .red
+            backgroundColor = Color("Danger")
         }
     }
 }
@@ -121,3 +126,4 @@ struct SplitsView_Previews: PreviewProvider {
         SplitsView().preferredColorScheme(.dark)
     }
 }
+
