@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public enum Suit: String {
+public enum Suit: String, Codable {
     case spades, hearts, diamonds, clubs
     
     static func random() -> Suit {
@@ -16,7 +16,7 @@ public enum Suit: String {
     }
 }
 
-public struct Card {
+public struct Card: Codable {
     let rank: Int
     let suit: Suit
 }

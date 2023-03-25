@@ -1,92 +1,20 @@
 import SwiftUI
 
 struct SplitsView: View {
-    @State private var playerCard1: Card
-    @State private var playerCard2: Card
-    @State private var dealerCard: Card
-    @State private var feedbackMessage: String
-    @State private var backgroundColor: Color
-    @State private var isHintVisible: Bool = false
-    @State private var triggerDealerBackCardSwooshIn = false
-    
-    private let hintText: String = """
-    Always split aces and 8s
-    Never split 5s
-    Split 2s, 3s, 7s against 2-7
-    Split 4s against 5 or 6
-    Split 6s against 2-6
-    Split 9s against 2-6 and 8-9
-    """
-
-    
-    init() {
-        let card = Utility.randomCard()
-        playerCard1 = card
-        playerCard2 = Utility.randomCard(rank: card.rank)
-        dealerCard = Utility.randomCard()
-        feedbackMessage = ""
-        backgroundColor = .clear
-    }
-    
     var body: some View {
-        ZStack {
-            GradientBackground()
-            VStack(spacing: 16) {
-                Spacer()
-                Text(feedbackMessage)
-                HStack {
-                    CardView(Card(rank:0, suit: .clubs), delay: 0.2, triggerSwooshIn: $triggerDealerBackCardSwooshIn)
-                    CardView(dealerCard, delay: 0.6)
-                }.font(.system(size:40))
-                Spacer()
-                HStack {
-                    CardView(playerCard1)
-                    CardView(playerCard2, delay: 0.4)
-                }.font(.system(size:40))
-                Spacer()
-                
-                SplitButtonsView(playerCard1: $playerCard1, playerCard2: $playerCard2, dealerCard: $dealerCard, feedbackMessage: $feedbackMessage, backgroundColor: $backgroundColor)
-                ActionButton(title: "Deal", backgroundColor: Color("Secondary"), action: {
-                    let card = Utility.randomCard()
-                    playerCard1 = card
-                    playerCard2 = Utility.randomCard(rank: card.rank)
-                    dealerCard = Utility.randomCard()
-                    triggerDealerBackCardSwooshIn = true
-                    feedbackMessage = ""
-                    backgroundColor = .clear
-                })
-            }
-            .padding()
-            .background(backgroundColor)
-            .onTapGesture {
-                if isHintVisible {
-                    isHintVisible = false
-                }
-            }
-            
-            if isHintVisible {
-                Color.clear
-                    .edgesIgnoringSafeArea(.all)
-                    .onTapGesture {
-                        isHintVisible = false
-                    }
-                
-                HintPopupView(hintText: hintText, onClose: {
-                    isHintVisible = false
-                })
-            }
-        }
-        .navigationBarItems(trailing: hintButton)
-    }
-    
-    private var hintButton: some View {
-        Button(action: {
-            isHintVisible.toggle()
-        }) {
-            Image(systemName: "questionmark.circle")
-                .font(.system(size: 24))
-                .foregroundColor(.blue)
-        }
+        TrainingGameView(hintText: """
+            Always split aces and 8s
+            Never split 5s
+            Split 2s, 3s, 7s against 2-7
+            Split 4s against 5 or 6
+            Split 6s against 2-6
+            Split 9s against 2-6 and 8-9
+            """, generatePlayerCards: {
+                let card = Utility.randomCard()
+                return (card, Utility.randomCard(rank: card.rank))
+            }, splitOnly: true
+                    
+        )
     }
 }
 
@@ -126,4 +54,3 @@ struct SplitsView_Previews: PreviewProvider {
         SplitsView().preferredColorScheme(.dark)
     }
 }
-
