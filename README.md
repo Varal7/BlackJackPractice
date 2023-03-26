@@ -44,10 +44,14 @@ BlackJackPractice is an intuitive app that helps users practice their blackjack 
 
 <table>
   <tr>
-    <td><img src="https://github.com/Varal7/BlackJackPractice/raw/main/screenshots/menu.PNG" alt="Menu Screenshot" width="200"/></td>
-    <td><img src="https://github.com/Varal7/BlackJackPractice/raw/main/screenshots/split.PNG" alt="Split Screenshot" width="200"/></td>
-    <td><img src="https://github.com/Varal7/BlackJackPractice/raw/main/screenshots/soft.PNG" alt="Soft Screenshot" width="200"/></td>
-    <td><img src="https://github.com/Varal7/BlackJackPractice/raw/main/screenshots/hard.PNG" alt="Hard Screenshot" width="200"/></td>
+    <td><img src="https://github.com/Varal7/BlackJackPractice/raw/main/screenshots/screenshot1.png" alt="Menu" width="200"/></td>
+    <td><img src="https://github.com/Varal7/BlackJackPractice/raw/main/screenshots/screenshot2.png" alt="Splits" width="200"/></td>
+    <td><img src="https://github.com/Varal7/BlackJackPractice/raw/main/screenshots/screenshot3.png" alt="Hard Totals" width="200"/></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/Varal7/BlackJackPractice/raw/main/screenshots/screenshot4.png" alt="Hint" width="200"/></td>
+    <td><img src="https://github.com/Varal7/BlackJackPractice/raw/main/screenshots/screenshot5.png" alt="Wrong" width="200"/></td>
+    <td><img src="https://github.com/Varal7/BlackJackPractice/raw/main/screenshots/screenshot6.png" alt="Settings" width="200"/></td>
   </tr>
 </table>
 
