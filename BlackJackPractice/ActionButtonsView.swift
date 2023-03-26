@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import BlackJackSharedCode
 
 struct ActionButtonsView: View {
     @Binding var playerCard1: Card
@@ -13,18 +14,23 @@ struct ActionButtonsView: View {
     @Binding var dealerCard: Card
     @Binding var feedbackMessage: String
     @Binding var backgroundColor: Color
-    
+
     let actions: [Utility.Action] = [.stand, .hit, .split, .double]
     
+    var onCorrectAction: () -> Void
+    var onIncorrectAction: () -> Void
+    
     var body: some View {
-        VStack(spacing: 16) {
-            ForEach(Array(0..<(actions.count / 2)), id: \.self) { index in
-                HStack {
-                    ForEach(Array(0..<2), id: \.self) { subIndex in
-                        let action = actions[index * 2 + subIndex]
-                        ActionButton(title: action.rawValue.capitalized, backgroundColor: Color("Primary"), action: {
-                            handleAction(action: action)
-                        })
+        VStack {
+            VStack(spacing: 16) {
+                ForEach(Array(0..<(actions.count / 2)), id: \.self) { index in
+                    HStack {
+                        ForEach(Array(0..<2), id: \.self) { subIndex in
+                            let action = actions[index * 2 + subIndex]
+                            ActionButton(title: action.rawValue.capitalized, backgroundColor: Color("Primary"), action: {
+                                handleAction(action: action)
+                            })
+                        }
                     }
                 }
             }
@@ -35,9 +41,11 @@ struct ActionButtonsView: View {
         let (correctAction, reason) = Utility.getAction(playerCard1: playerCard1, playerCard2: playerCard2, dealerCard: dealerCard)
         if action == correctAction {
             feedbackMessage = "Correct! \(reason)"
+            onCorrectAction()
             backgroundColor = .clear
         } else {
             feedbackMessage = "Incorrect. \(reason)"
+            onIncorrectAction()
             backgroundColor = Color("Danger")
         }
     }
@@ -52,7 +60,8 @@ struct ActionButtonsView_Previews: PreviewProvider {
                 playerCard2: .constant(Card(rank: 10, suit: .diamonds)),
                 dealerCard: .constant(Card(rank: 1, suit: .spades)),
                 feedbackMessage: .constant(""),
-                backgroundColor: .constant(.clear)
+                backgroundColor: .constant(.clear),
+                onCorrectAction: {}, onIncorrectAction: {}
             )
             .previewLayout(.sizeThatFits)
             .padding()

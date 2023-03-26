@@ -7,27 +7,27 @@
 
 import Foundation
 
-class Utility {
-    static func randomCard() -> Card {
+public class Utility {
+    public static func randomCard() -> Card {
         let cardValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
         let rank = cardValues.randomElement()!
         let suit = Suit.random()
         return Card(rank: rank, suit: suit)
     }
     
-    static func randomCard(rank: Int) -> Card {
+    public static func randomCard(rank: Int) -> Card {
         let suit = Suit.random()
         return Card(rank: rank, suit: suit)
     }
     
-    static func randomCard(excludingRank: Int) -> Card {
+    public static func randomCard(excludingRank: Int) -> Card {
         let randomNumber = Int(arc4random_uniform(12) + 1)
         let rank = randomNumber >= excludingRank ? randomNumber + 1 : randomNumber
         let suit = Suit.random()
         return Card(rank: rank, suit: suit)
     }
 
-    enum Action: String {
+    public enum Action: String {
         case stand = "STAND"
         case hit = "HIT"
         case double = "DOUBLE"
@@ -35,11 +35,11 @@ class Utility {
     }
 
     
-    static func shouldSplitCards(playerCard1: Card, playerCard2: Card, dealerCard: Card) -> (Bool, String) {
+    public static func shouldSplitCards(playerCard1: Card, playerCard2: Card, dealerCard: Card) -> (Bool, String) {
         return Utility.shouldSplitCards(playerCard1: playerCard1.rank, playerCard2: playerCard2.rank, dealerCard: dealerCard.rank)
     }
     
-    static func getAction(playerCard1: Card, playerCard2: Card, dealerCard: Card) -> (action: Action, message: String) {
+    public static func getAction(playerCard1: Card, playerCard2: Card, dealerCard: Card) -> (action: Action, message: String) {
         return Utility.getAction(playerCard1: playerCard1.rank, playerCard2: playerCard2.rank, dealerCard: dealerCard.rank)
     }
 

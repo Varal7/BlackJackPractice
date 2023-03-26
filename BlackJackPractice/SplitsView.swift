@@ -1,8 +1,10 @@
 import SwiftUI
+import BlackJackSharedCode
+
 
 struct SplitsView: View {
     var body: some View {
-        TrainingGameView(hintText: """
+        TrainingGameView(gameName: "Splits", hintText: """
             Always split aces and 8s
             Never split 5s
             Split 2s, 3s, 7s against 2-7
@@ -24,8 +26,11 @@ struct SplitButtonsView: View {
     @Binding var dealerCard: Card
     @Binding var feedbackMessage: String
     @Binding var backgroundColor: Color
-    
+
     let actions: [String] = ["Split", "Don't Split"]
+    
+    var onCorrectAction: () -> Void
+    var onIncorrectAction: () -> Void
     
     var body: some View {
         HStack {
@@ -41,9 +46,11 @@ struct SplitButtonsView: View {
         let (shouldSplit, reason) = Utility.shouldSplitCards(playerCard1: playerCard1, playerCard2: playerCard2, dealerCard: dealerCard)
         if (action == "Split" && shouldSplit) || (action == "Don't Split" && !shouldSplit) {
             feedbackMessage = "Correct! \(reason)"
+            onCorrectAction()
             backgroundColor = .clear
         } else {
             feedbackMessage = "Incorrect. \(reason)"
+            onIncorrectAction()
             backgroundColor = Color("Danger")
         }
     }

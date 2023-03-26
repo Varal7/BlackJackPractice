@@ -1,9 +1,10 @@
 import SwiftUI
+import BlackJackSharedCode
 
 
 struct HardTotalsView: View {
     var body: some View {
-        TrainingGameView(hintText: """
+        TrainingGameView(gameName: "HardTotals", hintText: """
             17-21: stand
             13-16: stand against 2-6, otw hit
             12: stand against 4-6, otw hit

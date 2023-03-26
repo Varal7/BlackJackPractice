@@ -6,26 +6,16 @@
 //
 
 import SwiftUI
+import BlackJackSharedCode
 
-public enum Suit: String, Codable {
-    case spades, hearts, diamonds, clubs
-    
-    static func random() -> Suit {
-        let cases: [Suit] = [.spades, .hearts, .diamonds, .clubs]
-        return cases.randomElement()!
-    }
-}
-
-public struct Card: Codable {
-    let rank: Int
-    let suit: Suit
-}
 
 struct CardView: View {
     let card: Card
     let delay: Double
     @Binding var triggerSwooshIn: Bool
     @State private var isSwooshedIn = false
+    let dealingSpeed = UserDefaults.standard.double(forKey: "dealingSpeed")
+
     
     init(_ card: Card, delay: Double = 0, triggerSwooshIn: Binding<Bool> = .constant(false)) {
         self.card = card
@@ -96,7 +86,7 @@ struct CardView: View {
     func swooshIn() {
         isSwooshedIn = false
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            withAnimation(.easeOut(duration: 0.1)) {
+            withAnimation(.easeOut(duration: dealingSpeed)) {
                 isSwooshedIn = true
             }
         }

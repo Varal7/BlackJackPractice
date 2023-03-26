@@ -26,7 +26,7 @@ struct HintPopupView: View {
                     .font(.system(size: 24, weight: .bold))
 
                 Text(hintText)
-                    .font(.system(size: 18, weight: .medium))
+                    .font(.system(size: 18))
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal)
 

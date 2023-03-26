@@ -55,6 +55,17 @@ struct MenuView: View {
                         .foregroundColor(Color("TextColor"))
                         .cornerRadius(6)
                 }
+                
+                NavigationLink(destination: SettingsView()) {
+                    Text("Settings")
+                        .fontWeight(.medium)
+                        .font(.system(size:24))
+                        .padding()
+                        .frame(width: buttonWidth)
+                        .background(Color("Secondary"))
+                        .foregroundColor(Color("TextColor"))
+                        .cornerRadius(6)
+                }
             }
             .padding()
         }
