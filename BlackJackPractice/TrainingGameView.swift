@@ -12,6 +12,8 @@ struct TrainingGameView: View {
     @State private var triggerDealerBackCardSwooshIn = false
     @State private var streakCount: Int
     @State private var highScore: Int
+    
+
 
     
     let showDealButton = UserDefaults.standard.bool(forKey: "showDealButton")
@@ -22,7 +24,7 @@ struct TrainingGameView: View {
     let hintText: String
     let splitOnly: Bool
     let generatePlayerCards: () -> (Card, Card)
-    
+    ap
     let streakKey: String
     let highScoreKey: String
     
@@ -41,6 +43,12 @@ struct TrainingGameView: View {
         highScoreKey = "streakCount" + gameName
         streakCount = UserDefaults.standard.integer(forKey: streakKey)
         highScore = UserDefaults.standard.integer(forKey: highScoreKey)
+        
+        UserDefaults.standard.register(defaults: ["showDealButton" : false])
+        UserDefaults.standard.register(defaults: ["autoDealEnabled" : true])
+        UserDefaults.standard.register(defaults: ["dealingSpeed" : 0.2])
+
+
     }
     
     var body: some View {

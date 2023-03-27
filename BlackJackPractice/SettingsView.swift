@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("showDealButton") var showDealButton: Bool = true
+    @AppStorage("showDealButton") var showDealButton: Bool = false
     @AppStorage("autoDealEnabled") var autoDealEnabled: Bool = true
     @AppStorage("dealingSpeed") var dealingSpeed: Double = 0.1
 
