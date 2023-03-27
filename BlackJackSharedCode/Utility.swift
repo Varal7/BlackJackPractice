@@ -40,7 +40,7 @@ public class Utility {
     }
     
     public static func getAction(playerCard1: Card, playerCard2: Card, dealerCard: Card) -> (action: Action, message: String) {
-        return Utility.getAction(playerCard1: playerCard1.rank, playerCard2: playerCard2.rank, dealerCard: dealerCard.rank)
+        return Utility.getAction(playerCard1: min(playerCard1.rank, 10), playerCard2: min(playerCard2.rank, 10), dealerCard: dealerCard.rank)
     }
 
     
@@ -145,6 +145,9 @@ public class Utility {
 
 
     static func getAction(playerCard1: Int, playerCard2: Int, dealerCard: Int) -> (action: Action, message: String) {
+        assert (playerCard1 <= 10)
+        assert (playerCard2 <= 10)
+        
         if playerCard1 == playerCard2 {
             let (shouldSplit, reason) = shouldSplitCards(playerCard1: playerCard1, playerCard2: playerCard2, dealerCard: dealerCard)
             if (shouldSplit) {
@@ -155,6 +158,8 @@ public class Utility {
         if playerCard1 == 1 || playerCard2 == 1 {
             return getActionOnSoftCount(playerCard1: playerCard1, playerCard2: playerCard2, dealerCard: dealerCard)
         }
+        
+        
 
         if playerCard1 + playerCard2 >= 17 {
             return (action: .stand, message: "17-21: stand")

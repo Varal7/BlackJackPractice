@@ -70,7 +70,7 @@ struct TrainingGameView: View {
                             deal()
                         }
                         UserDefaults.standard.set(streakCount, forKey: streakKey)
-                        UserDefaults.standard.set(streakCount, forKey: highScoreKey)
+                        UserDefaults.standard.set(highScore, forKey: highScoreKey)
 
                     }, onIncorrectAction: {
                         streakCount = 0
@@ -84,7 +84,7 @@ struct TrainingGameView: View {
                             deal()
                         }
                         UserDefaults.standard.set(streakCount, forKey: streakKey)
-                        UserDefaults.standard.set(streakCount, forKey: highScoreKey)
+                        UserDefaults.standard.set(highScore, forKey: highScoreKey)
 
                     }, onIncorrectAction: {
                         streakCount = 0
